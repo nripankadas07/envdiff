@@ -27,67 +27,66 @@ envdiff .env.example .env
 Exit codes:
 
 - `0` — no drift
-- - `1` — drift detected
-  - - `2` — input error (missing file or parse error)
-   
-    - Pass `--no-color` to disable ANSI colors in piped output.
-   
-    - ### Library
-   
-    - ```python
-      from envdiff import diff_envs, format_diff, parse_env_file
+- `1` — drift detected
+- `2` — input error (missing file or parse error)
 
-      left = parse_env_file(".env.example")
-      right = parse_env_file(".env")
-      diff = diff_envs(left, right)
+Pass `--no-color` to disable ANSI colors in piped output.
 
-      if not diff.is_empty:
-          print(format_diff(diff, color=True))
-      ```
+### Library
 
-      ## API
+```python
+from envdiff import diff_envs, format_diff, parse_env_file
 
-      ### `parse_env(text: str) -> dict[str, str]`
+left = parse_env_file(".env.example")
+right = parse_env_file(".env")
+diff = diff_envs(left, right)
 
-      Parse a `.env` document. Supports comments (`#`), inline comments,
-      double-quoted values with `\n`, `\t`, `\r`, `\\`, `\"` escapes, single-quoted
-      literal values, the `export` prefix, and a UTF-8 BOM. Later definitions of a
-      key override earlier ones. Raises `EnvParseError` on malformed lines or invalid
-      keys, and `TypeError` on non-string input.
+if not diff.is_empty:
+    print(format_diff(diff, color=True))
+```
 
-      ### `parse_env_file(path: str | Path) -> dict[str, str]`
+## API
 
-      Read a file from disk and parse it. Raises `FileNotFoundError` if the path
-      does not exist.
+### `parse_env(text: str) -> dict[str, str]`
 
-      ### `diff_envs(left: Mapping[str, str], right: Mapping[str, str]) -> EnvDiff`
+Parse a `.env` document. Supports comments (`#`), inline comments,
+double-quoted values with `\n`, `\t`, `\r`, `\\`, `\"` escapes, single-quoted
+literal values, the `export` prefix, and a UTF-8 BOM. Later definitions of a
+key override earlier ones. Raises `EnvParseError` on malformed lines or invalid
+keys, and `TypeError` on non-string input.
 
-      Return an `EnvDiff` describing the keys missing on either side, the keys whose
-      values have changed, and the keys that match.
+### `parse_env_file(path: str | Path) -> dict[str, str]`
 
-      ### `EnvDiff`
+Read a file from disk and parse it. Raises `FileNotFoundError` if the path
+does not exist.
 
-      Frozen dataclass with `missing_in_right`, `missing_in_left`, `changed`,
-      `unchanged` fields and an `is_empty` property.
+### `diff_envs(left: Mapping[str, str], right: Mapping[str, str]) -> EnvDiff`
 
-      ### `format_diff(diff: EnvDiff, *, color: bool = False) -> str`
+Return an `EnvDiff` describing the keys missing on either side, the keys whose
+values have changed, and the keys that match.
 
-      Render a diff as a human-readable, optionally ANSI-colored string.
+### `EnvDiff`
 
-      ## Non-goals
+Frozen dataclass with `missing_in_right`, `missing_in_left`, `changed`,
+`unchanged` fields and an `is_empty` property.
 
-      envdiff intentionally does **not** perform shell-style variable interpolation
-      (`${OTHER}`), does not write or sync files, and does not modify your
-      environment. It is a read-only drift reporter.
+### `format_diff(diff: EnvDiff, *, color: bool = False) -> str`
 
-      ## Running tests
+Render a diff as a human-readable, optionally ANSI-colored string.
 
-      ```bash
-      pip install pytest pytest-cov
-      PYTHONPATH=src pytest --cov=envdiff
-      ```
+## Non-goals
 
-      ## License
+envdiff intentionally does **not** perform shell-style variable interpolation
+(`${OTHER}`), does not write or sync files, and does not modify your
+environment. It is a read-only drift reporter.
 
-      MIT — see `LICENSE`.
-      
+## Running tests
+
+```bash
+pip install pytest pytest-cov
+PYTHONPATH=src pytest --cov=envdiff
+```
+
+## License
+
+MIT — see `LICENSE`.
