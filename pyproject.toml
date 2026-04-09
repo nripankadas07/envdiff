@@ -12,22 +12,21 @@ authors = [{ name = "Nripanka Das", email = "nripankadas@gmail.com" }]
 keywords = ["dotenv", "env", "diff", "config", "drift", "cli"]
 classifiers = [
     "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-            "Operating System :: OS Independent",
-                "Topic :: Software Development :: Libraries :: Python Modules",
-                ]
-                requires-python = ">=3.10"
-                dependencies = []
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.10"
+dependencies = []
 
-                [project.scripts]
-                envdiff = "envdiff.__main__:main"
+[project.scripts]
+envdiff = "envdiff.__main__:main"
 
-                [project.urls]
-                Homepage = "https://github.com/nripankadas07/envdiff"
+[project.urls]
+Homepage = "https://github.com/nripankadas07/envdiff"
 
-                [tool.setuptools.packages.find]
-                where = ["src"]
+[tool.setuptools.packages.find]
+where = ["src"]
 
-                [tool.pytest.ini_options]
-                testpaths = ["tests"]
-                
+[tool.pytest.ini_options]
+testpaths = ["tests"]
